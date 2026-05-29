@@ -1,0 +1,10 @@
+error: recursive call detected
+  --> $DIR/main.rs:5:7
+   |
+LL |         n * factorial(n - 1)
+   |             ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[deny(recursion_lint)]` on by default
+
+error: aborting due to 1 previous error
+

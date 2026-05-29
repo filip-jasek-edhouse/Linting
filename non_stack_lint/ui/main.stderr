@@ -1,0 +1,16 @@
+error: non-stack memory allocation detected
+  --> $DIR/main.rs:2:15
+   |
+LL |     let _boxed = Box::new(1_u32);
+   |                  ^^^^^^^^^^^^^^^
+   |
+   = note: `#[deny(non_stack_lint)]` on by default
+
+error: non-stack memory allocation detected
+  --> $DIR/main.rs:3:13
+   |
+LL |     let _vec = Vec::<u8>::with_capacity(8);
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: aborting due to 2 previous errors
+
