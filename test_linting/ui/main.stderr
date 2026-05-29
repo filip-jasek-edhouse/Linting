@@ -1,0 +1,10 @@
+warning: signpost used: labeled continue (`continue 'label`)
+  --> $DIR/main.rs:7:4
+   |
+LL |             continue 'epic;
+   |             ^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(test_linting)]` on by default
+
+warning: 1 warning emitted
+
