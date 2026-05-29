@@ -22,4 +22,16 @@ jobs:
         run: cargo install cargo-dylint dylint-link --locked
 
       - name: Run custom lint and fail on findings
-        run: DYLINT_RUSTFLAGS="-D test_linting" cargo dylint --path test_linting --workspace -- --all-targets
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          lints=(test_linting)
+          while IFS= read -r lint_dir; do
+            lints+=("$lint_dir")
+          done < <(find . -maxdepth 1 -mindepth 1 -type d -name "*_lint" -printf "%f\n" | sort)
+
+          for lint in "${lints[@]}"; do
+            echo "Running $lint"
+            DYLINT_RUSTFLAGS="-D $lint" cargo dylint --path "$lint" --workspace -- --all-targets
+          done
