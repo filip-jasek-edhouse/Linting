@@ -1,21 +1,44 @@
-# template
+# test_linting
 
-### What it does
+## What it does
 
-### Why is this bad?
+Emits a warning when labeled continue is used.
 
-### Known problems
+## Why is this bad?
 
-Remove if none.
+Labeled control-flow jumps are easy to miss in reviews and can make loops harder to reason about.
 
-### Example
+## Known problems
+
+This lint intentionally allows unlabeled continue.
+
+## Example
+
+Warned:
 
 ```rust
-// example code where a warning is issued
+'epic: loop {
+	if should_skip() {
+		continue 'epic;
+	}
+}
 ```
 
-Use instead:
+Preferred:
 
 ```rust
-// example code that does not raise a warning
+loop {
+	if should_skip() {
+		continue;
+	}
+}
+```
+
+## Run
+
+PowerShell:
+
+```powershell
+$env:DYLINT_RUSTFLAGS='-D test_linting'
+cargo dylint --path test_linting --workspace -- --all-targets
 ```

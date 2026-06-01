@@ -1,21 +1,40 @@
-# template
+# inf_loop_lint
 
-### What it does
+## What it does
 
-### Why is this bad?
+Emits an error for loop expressions that use the loop keyword.
 
-### Known problems
+## Why is this bad?
 
-Remove if none.
+Unbounded loops are often accidental and can hang a program.
 
-### Example
+## Known problems
+
+This lint only targets loop and does not flag while or for loops.
+
+## Example
+
+Denied:
 
 ```rust
-// example code where a warning is issued
+loop {
+	do_work();
+}
 ```
 
-Use instead:
+Allowed:
 
 ```rust
-// example code that does not raise a warning
+while should_continue() {
+	do_work();
+}
+```
+
+## Run
+
+PowerShell:
+
+```powershell
+$env:DYLINT_RUSTFLAGS='-D inf_loop_lint'
+cargo dylint --path inf_loop_lint --workspace -- --all-targets
 ```

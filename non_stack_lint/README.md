@@ -1,21 +1,47 @@
-# template
+# non_stack_lint
 
-### What it does
+## What it does
 
-### Why is this bad?
+Emits an error on common non-stack allocation entry points.
 
-### Known problems
+Current coverage includes:
 
-Remove if none.
+- Box::new
+- Vec::new and Vec::with_capacity
+- String::new and String::with_capacity
+- Rc::new
+- Arc::new
+- std::alloc allocation functions
 
-### Example
+## Why is this bad?
+
+Heap allocations can increase latency, memory pressure, and runtime nondeterminism.
+
+## Known problems
+
+This lint is conservative and does not catch every possible heap allocation route.
+
+## Example
+
+Denied:
 
 ```rust
-// example code where a warning is issued
+let _boxed = Box::new(1u32);
+let _vec = Vec::<u8>::with_capacity(8);
 ```
 
-Use instead:
+Preferred:
 
 ```rust
-// example code that does not raise a warning
+let x = 1u32;
+let buf = [0u8; 8];
+```
+
+## Run
+
+PowerShell:
+
+```powershell
+$env:DYLINT_RUSTFLAGS='-D non_stack_lint'
+cargo dylint --path non_stack_lint --workspace -- --all-targets
 ```

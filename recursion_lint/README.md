@@ -1,21 +1,45 @@
-# template
+# recursion_lint
 
-### What it does
+## What it does
 
-### Why is this bad?
+Emits an error for direct recursion in function and method calls.
 
-### Known problems
+## Why is this bad?
 
-Remove if none.
+Direct recursion can cause stack overflows and is often accidental.
 
-### Example
+## Known problems
+
+This lint currently focuses on direct recursion only. It does not detect mutual recursion across multiple functions.
+
+## Example
+
+Denied:
 
 ```rust
-// example code where a warning is issued
+fn factorial(n: u32) -> u32 {
+	if n <= 1 { 1 } else { n * factorial(n - 1) }
+}
 ```
 
-Use instead:
+Preferred:
 
 ```rust
-// example code that does not raise a warning
+fn factorial(mut n: u32) -> u32 {
+	let mut acc = 1;
+	while n > 1 {
+		acc *= n;
+		n -= 1;
+	}
+	acc
+}
+```
+
+## Run
+
+PowerShell:
+
+```powershell
+$env:DYLINT_RUSTFLAGS='-D recursion_lint'
+cargo dylint --path recursion_lint --workspace -- --all-targets
 ```
