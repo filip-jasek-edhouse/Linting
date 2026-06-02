@@ -1,6 +1,6 @@
 # test_lint
 
-Lint name: test_linting
+Lint name: test_lint
 
 ## What it does
 
@@ -41,6 +41,6 @@ loop {
 PowerShell:
 
 ```powershell
-$env:DYLINT_RUSTFLAGS='-D test_linting'
+$env:DYLINT_RUSTFLAGS='-D test_lint'
 cargo dylint --path test_lint --workspace -- --all-targets
 ```

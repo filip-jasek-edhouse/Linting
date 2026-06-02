@@ -34,11 +34,6 @@ jobs:
           )
 
           for lint_path in "${lint_paths[@]}"; do
-            lint_name="$lint_path"
-            if [[ "$lint_path" == "test_lint" ]]; then
-              lint_name="test_linting"
-            fi
-
-            echo "Running ${lint_name} from ${lint_path}"
-            DYLINT_RUSTFLAGS="-D ${lint_name}" cargo dylint --path "$lint_path" --workspace -- --all-targets
+            echo "Running ${lint_path}"
+            DYLINT_RUSTFLAGS="-D ${lint_path}" cargo dylint --path "$lint_path" --workspace -- --all-targets
           done

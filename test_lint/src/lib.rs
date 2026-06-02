@@ -58,19 +58,19 @@ dylint_linting::declare_late_lint! {
     ///     }
     /// }
     /// ```
-    pub TEST_LINTING,
+    pub TEST_LINT,
     Warn,
     "warn on labeled continue usage"
 }
 
-impl<'tcx> LateLintPass<'tcx> for TestLinting {
+impl<'tcx> LateLintPass<'tcx> for TestLint {
     fn check_expr(&mut self, cx: &LateContext<'tcx>, expr: &'tcx Expr<'tcx>) {
         if let ExprKind::Continue(destination) = expr.kind
             && destination.label.is_some()
         {
             span_lint(
                 cx,
-                TEST_LINTING,
+                TEST_LINT,
                 expr.span,
                 "signpost used: labeled continue (`continue 'label`)",
             );
