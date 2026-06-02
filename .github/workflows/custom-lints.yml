@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          lints=(test_linting)
+          lints=(test_lint)
           while IFS= read -r lint_dir; do
             lints+=("$lint_dir")
           done < <(find . -maxdepth 1 -mindepth 1 -type d -name "*_lint" -printf "%f\n" | sort)
