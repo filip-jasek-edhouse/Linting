@@ -1,4 +1,6 @@
-# test_linting
+# test_lint
+
+Lint name: test_linting
 
 ## What it does
 
@@ -40,5 +42,5 @@ PowerShell:
 
 ```powershell
 $env:DYLINT_RUSTFLAGS='-D test_linting'
-cargo dylint --path test_linting --workspace -- --all-targets
+cargo dylint --path test_lint --workspace -- --all-targets
 ```

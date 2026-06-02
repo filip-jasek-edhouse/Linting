@@ -26,12 +26,19 @@ jobs:
         run: |
           set -euo pipefail
 
-          lints=(test_lint)
-          while IFS= read -r lint_dir; do
-            lints+=("$lint_dir")
-          done < <(find . -maxdepth 1 -mindepth 1 -type d -name "*_lint" -printf "%f\n" | sort)
+          lint_paths=(
+            test_lint
+            recursion_lint
+            inf_loop_lint
+            non_stack_lint
+          )
 
-          for lint in "${lints[@]}"; do
-            echo "Running $lint"
-            DYLINT_RUSTFLAGS="-D $lint" cargo dylint --path "$lint" --workspace -- --all-targets
+          for lint_path in "${lint_paths[@]}"; do
+            lint_name="$lint_path"
+            if [[ "$lint_path" == "test_lint" ]]; then
+              lint_name="test_linting"
+            fi
+
+            echo "Running ${lint_name} from ${lint_path}"
+            DYLINT_RUSTFLAGS="-D ${lint_name}" cargo dylint --path "$lint_path" --workspace -- --all-targets
           done

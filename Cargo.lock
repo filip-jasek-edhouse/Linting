@@ -1106,7 +1106,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "test_linting"
+name = "test_lint"
 version = "0.1.0"
 dependencies = [
  "clippy_utils",
