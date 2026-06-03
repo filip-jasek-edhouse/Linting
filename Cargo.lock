@@ -1106,15 +1106,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "test_lint"
-version = "0.1.0"
-dependencies = [
- "clippy_utils",
- "dylint_linting",
- "dylint_testing",
-]
-
-[[package]]
 name = "tester"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

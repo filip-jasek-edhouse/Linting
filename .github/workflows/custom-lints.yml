@@ -27,7 +27,6 @@ jobs:
           set -euo pipefail
 
           lint_paths=(
-            test_lint
             recursion_lint
             inf_loop_lint
             non_stack_lint
